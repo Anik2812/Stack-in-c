@@ -6,7 +6,7 @@
 #define MAX_SIZE 100
 
 typedef struct {
-    int* array;
+    int *array;
     int top;
     int capacity;
 } Stack;
@@ -42,6 +42,14 @@ int pop(Stack* stack) {
         return INT_MIN;
     }
     return stack->array[stack->top--];
+}
+
+int redo(Stack* stack) {
+    if (isEmpty(stack)) {
+        printf("Stack Underflow! Cannot pop from an empty stack\n");
+        return INT_MIN;
+    }
+    return stack->array[stack->top++];
 }
 
 int peek(Stack* stack) {
@@ -85,7 +93,7 @@ int main() {
     while (1) {
         printf("\nStack Operations:\n");
         printf("1. Push\n2. Pop\n3. Peek\n4. Display\n5. Size\n");
-        printf("6. Is Empty\n7. Is Full\n8. Clear\n9. Exit\n");
+        printf("6. Is Empty\n7. Is Full\n8. Redo\n9. Clear\n10. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -118,9 +126,13 @@ int main() {
                 printf("Is stack full? %s\n", isFull(stack) ? "Yes" : "No");
                 break;
             case 8:
-                clear(stack);
+                item = redo(stack);
+                printf("Redo item: %d\n", item);
                 break;
             case 9:
+                clear(stack);
+                break;
+            case 10:
                 freeStack(stack);
                 printf("Exiting the program. Goodbye!\n");
                 exit(0);
